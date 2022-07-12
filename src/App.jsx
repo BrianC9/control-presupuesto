@@ -1,11 +1,16 @@
+import { useState } from 'react';
 import Header from './components/Header';
-import casa from './img/icono_casa.svg';
 function App() {
+  const [presupuesto, setPresupuesto] = useState(0);
+  const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   return (
     <div>
-      <Header />
-      <h1>Hola mundo</h1>
-      <img src={casa} width={50} />
+      <Header
+        presupuesto={presupuesto}
+        setPresupuesto={setPresupuesto}
+        isValidPresupuesto={isValidPresupuesto}
+        setIsValidPresupuesto={setIsValidPresupuesto}
+      />
     </div>
   );
 }
