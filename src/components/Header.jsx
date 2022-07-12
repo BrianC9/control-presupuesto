@@ -9,13 +9,22 @@ function Header({
 }) {
   return (
     <header>
-      <h1>Control de presupuesto</h1>
-      <NuevoPresupuesto
-        presupuesto={presupuesto}
-        setPresupuesto={setPresupuesto}
-        isValidPresupuesto={isValidPresupuesto}
-        setIsValidPresupuesto={setIsValidPresupuesto}
-      />
+      {isValidPresupuesto ? (
+        <>
+          <h1>Controla tus gastos</h1>
+          <p>Aqui tu sobrante etc</p>
+        </>
+      ) : (
+        <>
+          <h1>Control de presupuesto</h1>
+          <NuevoPresupuesto
+            presupuesto={presupuesto}
+            setPresupuesto={setPresupuesto}
+            isValidPresupuesto={isValidPresupuesto}
+            setIsValidPresupuesto={setIsValidPresupuesto}
+          />
+        </>
+      )}
     </header>
   );
 }

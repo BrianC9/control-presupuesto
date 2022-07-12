@@ -14,9 +14,11 @@ function NuevoPresupuesto({
     //Validacion
     if (!presupuesto || presupuesto <= 0) {
       setMensaje('No es un presupuesto válido');
+      setIsValidPresupuesto(false);
       return;
     }
-    setMensaje;
+    setMensaje('');
+    setIsValidPresupuesto(true);
   };
   return (
     <div className='contenedor-presupuesto sombra contenedor'>
