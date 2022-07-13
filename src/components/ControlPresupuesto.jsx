@@ -17,10 +17,10 @@ function ControlPresupuesto({ presupuesto }) {
           <span>Presupuesto: </span> {formatToMoney(presupuesto)}
         </p>
         <p>
-          <span>Disponible: </span> 100€
+          <span>Disponible: </span> {formatToMoney(presupuesto)}
         </p>
         <p>
-          <span>Gastado: </span> 100€
+          <span>Gastado: </span> {formatToMoney(presupuesto)}
         </p>
       </div>
     </div>
