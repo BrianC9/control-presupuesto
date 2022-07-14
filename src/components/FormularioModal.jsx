@@ -10,6 +10,16 @@ function FormularioModal({ setClickedModal, categorias_gastos }) {
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    console.log(id, value);
+    setGasto((prevData) => {
+      return {
+        ...prevData,
+        [id]: id === 'cantidad' ? Number(value) : value,
+      };
+    });
+  };
   const handleSubmitSpend = (e) => {
     e.preventDefault();
 
@@ -19,20 +29,37 @@ function FormularioModal({ setClickedModal, categorias_gastos }) {
   };
   return (
     <div className='modal' onSubmit={handleSubmitSpend}>
+      <div className={'cerrar-modal'}>
+        <img
+          src={cerrarModalIcon}
+          alt='cerrar modal button'
+          onClick={() => setClickedModal(false)}
+        />
+      </div>
       <form className='formulario animar'>
         <legend>Nuevo gasto</legend>
         <div className='campo'>
           <label htmlFor='concepto'>Concepto de gasto</label>
-          <input type='text' placeholder='Concepto del gasto' />
+          <input
+            type='text'
+            id='concepto'
+            onChange={handleChange}
+            placeholder='Concepto del gasto'
+          />
         </div>
         <div className='campo'>
           <label htmlFor='cantidad'>Cantidad</label>
-          <input id='cantidad' type='number' placeholder='Cantidad' />
+          <input
+            id='cantidad'
+            type='number'
+            onChange={handleChange}
+            placeholder='Cantidad'
+          />
         </div>
         <div className='campo'>
           <label htmlFor='categoria'>Categoría</label>
-          <select id='categoria'>
-            <option hidden selected>
+          <select id='categoria' onChange={handleChange}>
+            <option hidden value={''}>
               Selecciona una categoía
             </option>
             {categorias_gastos.map((cat) => {
@@ -46,12 +73,6 @@ function FormularioModal({ setClickedModal, categorias_gastos }) {
         </div>
         <input type={'submit'} value={'Agregar gasto'} />
       </form>
-      <img
-        src={cerrarModalIcon}
-        alt='cerrar modal button'
-        className={'cerrar-modal'}
-        onClick={() => setClickedModal(false)}
-      />
     </div>
   );
 }

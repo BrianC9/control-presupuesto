@@ -353,6 +353,7 @@ main {
 }
 .modal .cerrar-modal img:hover {
   cursor: pointer;
+  filter: brightness(70%);
 }
 
 .modal .formulario {
