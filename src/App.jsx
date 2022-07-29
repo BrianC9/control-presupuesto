@@ -4,6 +4,8 @@ import Header from './components/Header';
 import FormularioModal from './components/FormularioModal';
 function App() {
   const [presupuesto, setPresupuesto] = useState(0);
+  const [disponible, setDisponible] = useState(0);
+  const [gastado, setGastado] = useState(0);
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   const [clickedModal, setClickedModal] = useState(false);
   const [animarModal, setAnimarModal] = useState(false);
@@ -19,7 +21,6 @@ function App() {
     setClickedModal(true);
     setTimeout(() => {
       setAnimarModal(true);
-      console.log('animar modal');
     }, 500);
   };
   return (
@@ -45,6 +46,8 @@ function App() {
           categorias_gastos={CATEGORIAS_GASTOS}
           animarModal={animarModal}
           setAnimarModal={setAnimarModal}
+          presupuesto={presupuesto}
+          setPresupuesto={setPresupuesto}
         />
       )}
     </div>

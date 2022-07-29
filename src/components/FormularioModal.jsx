@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import cerrarModalIcon from '../img/cerrar.svg';
-
+import Mensaje from './Mensaje';
 function FormularioModal({
   setClickedModal,
   categorias_gastos,
   animarModal,
   setAnimarModal,
+  presupuesto,
+  setPresupuesto,
 }) {
   const [gasto, setGasto] = useState({
     concepto: '',
     cantidad: '',
     categoria: '',
   });
+  const [mensaje, setMensaje] = useState('');
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -25,7 +28,6 @@ function FormularioModal({
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    console.log(id, value);
     setGasto((prevData) => {
       return {
         ...prevData,
@@ -37,8 +39,21 @@ function FormularioModal({
     e.preventDefault();
 
     //Validaciones
+    if ([gasto.cantidad, gasto.categoria, gasto.concepto].includes('')) {
+      setMensaje('Todos los campos son obligatorios');
+      setTimeout(() => {
+        setMensaje('');
+      }, 2500);
+      return;
+    }
 
-    console.log('Gasto agregado');
+    // Limpieza de formulario after submit
+
+    setGasto({
+      concepto: '',
+      cantidad: '',
+      categoria: '',
+    });
   };
   return (
     <div className='modal' onSubmit={handleSubmitSpend}>
@@ -50,6 +65,8 @@ function FormularioModal({
         />
       </div>
       <form className={`formulario ${animarModal ? 'animar' : 'cerrar'}`}>
+        {mensaje && <Mensaje tipo={'error'}>{mensaje}</Mensaje>}
+
         <legend>Nuevo gasto</legend>
         <div className='campo'>
           <label htmlFor='concepto'>Concepto de gasto</label>
