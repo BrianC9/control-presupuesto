@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import cerrarModalIcon from '../img/cerrar.svg';
 import Mensaje from './Mensaje';
+import { generarId } from '../utils/index.js';
 function FormularioModal({
   setClickedModal,
   categorias_gastos,
@@ -8,6 +9,8 @@ function FormularioModal({
   setAnimarModal,
   presupuesto,
   setPresupuesto,
+  listaGastos,
+  setListaGastos,
 }) {
   const [gasto, setGasto] = useState({
     concepto: '',
@@ -46,9 +49,13 @@ function FormularioModal({
       }, 2500);
       return;
     }
+    //
 
-    // Limpieza de formulario after submit
-
+    // Limpieza  de formulario y cerrar modal after submit
+    ocultarModal();
+    setListaGastos((prev) => {
+      return [...prev, { ...gasto, id: generarId() }];
+    });
     setGasto({
       concepto: '',
       cantidad: '',

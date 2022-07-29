@@ -9,6 +9,7 @@ function App() {
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   const [clickedModal, setClickedModal] = useState(false);
   const [animarModal, setAnimarModal] = useState(false);
+  const [listaGastos, setListaGastos] = useState([]);
   const CATEGORIAS_GASTOS = [
     'comida',
     'suscripciones',
@@ -48,6 +49,8 @@ function App() {
           setAnimarModal={setAnimarModal}
           presupuesto={presupuesto}
           setPresupuesto={setPresupuesto}
+          listaGastos={listaGastos}
+          setListaGastos={setListaGastos}
         />
       )}
     </div>
