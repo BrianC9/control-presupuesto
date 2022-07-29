@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import nuevoCastoIcon from './img/nuevo-gasto.svg';
 import Header from './components/Header';
+import ListadoGastos from './components/ListadoGastos';
+
 import FormularioModal from './components/FormularioModal';
 function App() {
   const [presupuesto, setPresupuesto] = useState(0);
@@ -13,10 +15,11 @@ function App() {
   const CATEGORIAS_GASTOS = [
     'comida',
     'suscripciones',
-    'transporte',
-    'facturas',
     'ocio',
     'salud',
+    'casa',
+    'varios',
+    'ahorro',
   ];
   const handleAgregarGasto = () => {
     setClickedModal(true);
@@ -25,7 +28,7 @@ function App() {
     }, 500);
   };
   return (
-    <div>
+    <div className={clickedModal && 'fijar'}>
       <Header
         presupuesto={presupuesto}
         setPresupuesto={setPresupuesto}
@@ -33,14 +36,19 @@ function App() {
         setIsValidPresupuesto={setIsValidPresupuesto}
       />
       {isValidPresupuesto && (
-        <div className='nuevo-gasto'>
-          <img
-            src={nuevoCastoIcon}
-            alt='icono de agregar nuevo gasto'
-            onClick={handleAgregarGasto}
-          />
-        </div>
+        <>
+          <ListadoGastos listaGastos={listaGastos} />
+
+          <div className='nuevo-gasto'>
+            <img
+              src={nuevoCastoIcon}
+              alt='icono de agregar nuevo gasto'
+              onClick={handleAgregarGasto}
+            />
+          </div>
+        </>
       )}
+
       {clickedModal && (
         <FormularioModal
           setClickedModal={setClickedModal}

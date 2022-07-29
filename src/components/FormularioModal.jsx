@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import cerrarModalIcon from '../img/cerrar.svg';
 import Mensaje from './Mensaje';
-import { generarId } from '../utils/index.js';
+import {
+  generarId,
+  capitalizeFirstLetter,
+  formatDate,
+} from '../utils/index.js';
 function FormularioModal({
   setClickedModal,
   categorias_gastos,
@@ -18,9 +22,6 @@ function FormularioModal({
     categoria: '',
   });
   const [mensaje, setMensaje] = useState('');
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
 
   const ocultarModal = () => {
     setAnimarModal(false);
@@ -54,7 +55,14 @@ function FormularioModal({
     // Limpieza  de formulario y cerrar modal after submit
     ocultarModal();
     setListaGastos((prev) => {
-      return [...prev, { ...gasto, id: generarId() }];
+      return [
+        ...prev,
+        {
+          ...gasto,
+          id: generarId(),
+          fecha: formatDate(Date.now()),
+        },
+      ];
     });
     setGasto({
       concepto: '',
@@ -97,7 +105,7 @@ function FormularioModal({
           <label htmlFor='categoria'>Categoría</label>
           <select id='categoria' onChange={handleChange}>
             <option hidden value={''}>
-              Selecciona una categoía
+              Selecciona una categoría
             </option>
             {categorias_gastos.map((cat) => {
               return (

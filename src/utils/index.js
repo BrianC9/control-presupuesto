@@ -3,3 +3,15 @@ export const generarId = () => {
   const date = Date.now().toString(36);
   return random + date;
 };
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+export const formatDate = (date) => {
+  const fecha = new Date(date);
+  const config = {
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit',
+  };
+  return fecha.toLocaleDateString('es', config);
+};
