@@ -16,8 +16,11 @@ function App() {
     'salud',
   ];
   const handleAgregarGasto = () => {
-    console.log('Agregar gasto');
     setClickedModal(true);
+    setTimeout(() => {
+      setAnimarModal(true);
+      console.log('animar modal');
+    }, 500);
   };
   return (
     <div>
@@ -40,6 +43,8 @@ function App() {
         <FormularioModal
           setClickedModal={setClickedModal}
           categorias_gastos={CATEGORIAS_GASTOS}
+          animarModal={animarModal}
+          setAnimarModal={setAnimarModal}
         />
       )}
     </div>

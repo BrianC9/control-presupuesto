@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import cerrarModalIcon from '../img/cerrar.svg';
 
-function FormularioModal({ setClickedModal, categorias_gastos }) {
+function FormularioModal({
+  setClickedModal,
+  categorias_gastos,
+  animarModal,
+  setAnimarModal,
+}) {
   const [gasto, setGasto] = useState({
     concepto: '',
     cantidad: '',
@@ -10,6 +15,14 @@ function FormularioModal({ setClickedModal, categorias_gastos }) {
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  const ocultarModal = () => {
+    setAnimarModal(false);
+    setTimeout(() => {
+      setClickedModal(false);
+    }, 500);
+  };
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     console.log(id, value);
@@ -33,10 +46,10 @@ function FormularioModal({ setClickedModal, categorias_gastos }) {
         <img
           src={cerrarModalIcon}
           alt='cerrar modal button'
-          onClick={() => setClickedModal(false)}
+          onClick={ocultarModal}
         />
       </div>
-      <form className='formulario animar'>
+      <form className={`formulario ${animarModal ? 'animar' : 'cerrar'}`}>
         <legend>Nuevo gasto</legend>
         <div className='campo'>
           <label htmlFor='concepto'>Concepto de gasto</label>
