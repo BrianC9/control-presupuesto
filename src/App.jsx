@@ -28,12 +28,13 @@ function App() {
     }, 500);
   };
   return (
-    <div className={clickedModal && 'fijar'}>
+    <div className={clickedModal ? 'fijar' : ''}>
       <Header
         presupuesto={presupuesto}
         setPresupuesto={setPresupuesto}
         isValidPresupuesto={isValidPresupuesto}
         setIsValidPresupuesto={setIsValidPresupuesto}
+        listaGastos={listaGastos}
       />
       {isValidPresupuesto && (
         <>

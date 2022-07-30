@@ -15,3 +15,10 @@ export const formatDate = (date) => {
   };
   return fecha.toLocaleDateString('es', config);
 };
+
+export const formatToMoney = (number) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(number);
+};

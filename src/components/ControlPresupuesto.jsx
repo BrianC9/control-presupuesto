@@ -1,12 +1,19 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 
-function ControlPresupuesto({ presupuesto }) {
-  const formatToMoney = (number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'EUR',
-    }).format(number);
-  };
+import { formatToMoney } from '../utils/index.js';
+function ControlPresupuesto({ presupuesto, listaGastos }) {
+  const [disponible, setDisponible] = useState(0);
+  const [gastado, setGastado] = useState(0);
+
+  useEffect(() => {
+    const totalGastado = listaGastos.reduce(
+      (total, gasto) => gasto.cantidad + total,
+      0
+    );
+    setGastado(totalGastado);
+    const totalDisponible = presupuesto - totalGastado;
+    setDisponible(totalDisponible);
+  }, [listaGastos]);
   return (
     <div className='contenedor-presupuesto sombra contenedor dos-columnas'>
       <div>
@@ -17,10 +24,10 @@ function ControlPresupuesto({ presupuesto }) {
           <span>Presupuesto: </span> {formatToMoney(presupuesto)}
         </p>
         <p>
-          <span>Disponible: </span> {formatToMoney(presupuesto)}
+          <span>Disponible: </span> {formatToMoney(disponible)}
         </p>
         <p>
-          <span>Gastado: </span> {formatToMoney(presupuesto)}
+          <span>Gastado: </span> {formatToMoney(gastado)}
         </p>
       </div>
     </div>

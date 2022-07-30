@@ -7,13 +7,17 @@ function Header({
   setPresupuesto,
   isValidPresupuesto,
   setIsValidPresupuesto,
+  listaGastos,
 }) {
   return (
     <header>
       {isValidPresupuesto ? (
         <>
           <h1>Controla tu presupuesto</h1>
-          <ControlPresupuesto presupuesto={presupuesto} />
+          <ControlPresupuesto
+            presupuesto={presupuesto}
+            listaGastos={listaGastos}
+          />
         </>
       ) : (
         <>

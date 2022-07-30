@@ -52,7 +52,7 @@ function FormularioModal({
     }
     //
 
-    // Limpieza  de formulario y cerrar modal after submit
+    // Functionality after submit the expense
     ocultarModal();
     setListaGastos((prev) => {
       return [
