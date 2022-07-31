@@ -24,16 +24,18 @@ const iconsCategoria = {
   salud: IconoSalud,
   suscripciones: IconoSuscripciones,
 };
-function Gasto({ gasto }) {
+function Gasto({ gasto, setGastoSeleccionadoEditar }) {
   const { cantidad, concepto, categoria, fecha } = gasto;
 
-  const leadingActions = () => (
+  const leadingActions = (e) => (
     <LeadingActions>
-      <SwipeAction onClick={() => console.log('editar...')}>Editar</SwipeAction>
+      <SwipeAction onClick={() => setGastoSeleccionadoEditar(gasto)}>
+        Editar
+      </SwipeAction>
     </LeadingActions>
   );
 
-  const trailingActions = () => (
+  const trailingActions = (e) => (
     <TrailingActions>
       <SwipeAction onClick={() => console.log('eliminar...')}>
         Eliminar

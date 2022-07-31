@@ -1,17 +1,16 @@
-import { useState } from 'react';
-import nuevoCastoIcon from './img/nuevo-gasto.svg';
+import { useEffect, useState } from 'react';
+import nuevoGastoIcon from './img/nuevo-gasto.svg';
 import Header from './components/Header';
 import ListadoGastos from './components/ListadoGastos';
 
 import FormularioModal from './components/FormularioModal';
 function App() {
   const [presupuesto, setPresupuesto] = useState(0);
-  const [disponible, setDisponible] = useState(0);
-  const [gastado, setGastado] = useState(0);
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   const [clickedModal, setClickedModal] = useState(false);
   const [animarModal, setAnimarModal] = useState(false);
   const [listaGastos, setListaGastos] = useState([]);
+  const [gastoSeleccionadoEditar, setGastoSeleccionadoEditar] = useState({});
   const CATEGORIAS_GASTOS = [
     'comida',
     'suscripciones',
@@ -21,6 +20,13 @@ function App() {
     'varios',
     'ahorro',
   ];
+
+  useEffect(() => {
+    if (Object.keys(gastoSeleccionadoEditar).length > 0) {
+      console.log('Abro el modal desde el swipe');
+      handleAgregarGasto();
+    }
+  }, [gastoSeleccionadoEditar]);
   const handleAgregarGasto = () => {
     setClickedModal(true);
     setTimeout(() => {
@@ -38,11 +44,14 @@ function App() {
       />
       {isValidPresupuesto && (
         <>
-          <ListadoGastos listaGastos={listaGastos} />
+          <ListadoGastos
+            listaGastos={listaGastos}
+            setGastoSeleccionadoEditar={setGastoSeleccionadoEditar}
+          />
 
           <div className='nuevo-gasto'>
             <img
-              src={nuevoCastoIcon}
+              src={nuevoGastoIcon}
               alt='icono de agregar nuevo gasto'
               onClick={handleAgregarGasto}
             />
@@ -60,6 +69,8 @@ function App() {
           setPresupuesto={setPresupuesto}
           listaGastos={listaGastos}
           setListaGastos={setListaGastos}
+          gastoSeleccionadoEditar={gastoSeleccionadoEditar}
+          setGastoSeleccionadoEditar={setGastoSeleccionadoEditar}
         />
       )}
     </div>

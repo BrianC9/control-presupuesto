@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import cerrarModalIcon from '../img/cerrar.svg';
 import Mensaje from './Mensaje';
 import {
@@ -11,10 +11,9 @@ function FormularioModal({
   categorias_gastos,
   animarModal,
   setAnimarModal,
-  presupuesto,
-  setPresupuesto,
-  listaGastos,
   setListaGastos,
+  gastoSeleccionadoEditar,
+  setGastoSeleccionadoEditar,
 }) {
   const [gasto, setGasto] = useState({
     concepto: '',
@@ -23,7 +22,20 @@ function FormularioModal({
   });
   const [mensaje, setMensaje] = useState('');
 
+  useEffect(() => {
+    if (Object.keys(gastoSeleccionadoEditar).length > 0) {
+      const { concepto, cantidad, categoria } = gastoSeleccionadoEditar;
+      setGasto({ concepto, cantidad, categoria });
+      console.log(gastoSeleccionadoEditar);
+    }
+  }, []);
   const ocultarModal = () => {
+    setGastoSeleccionadoEditar({});
+    setGasto({
+      concepto: '',
+      cantidad: '',
+      categoria: '',
+    });
     setAnimarModal(false);
     setTimeout(() => {
       setClickedModal(false);
@@ -64,11 +76,6 @@ function FormularioModal({
         },
       ];
     });
-    setGasto({
-      concepto: '',
-      cantidad: '',
-      categoria: '',
-    });
   };
   return (
     <div className='modal' onSubmit={handleSubmitSpend}>
@@ -90,6 +97,7 @@ function FormularioModal({
             id='concepto'
             onChange={handleChange}
             placeholder='Concepto del gasto'
+            value={gasto.concepto}
           />
         </div>
         <div className='campo'>
@@ -99,11 +107,16 @@ function FormularioModal({
             type='number'
             onChange={handleChange}
             placeholder='Cantidad'
+            value={gasto.cantidad}
           />
         </div>
         <div className='campo'>
           <label htmlFor='categoria'>Categoría</label>
-          <select id='categoria' onChange={handleChange}>
+          <select
+            id='categoria'
+            onChange={handleChange}
+            value={gasto.categoria}
+          >
             <option hidden value={''}>
               Selecciona una categoría
             </option>
