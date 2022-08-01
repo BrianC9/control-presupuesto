@@ -24,8 +24,13 @@ const iconsCategoria = {
   salud: IconoSalud,
   suscripciones: IconoSuscripciones,
 };
-function Gasto({ gasto, setGastoSeleccionadoEditar }) {
-  const { cantidad, concepto, categoria, fecha } = gasto;
+function Gasto({
+  gasto,
+  setGastoSeleccionadoEditar,
+  setListaGastos,
+  listaGastos,
+}) {
+  const { cantidad, concepto, categoria, fecha, id } = gasto;
 
   const leadingActions = (e) => (
     <LeadingActions>
@@ -35,11 +40,16 @@ function Gasto({ gasto, setGastoSeleccionadoEditar }) {
     </LeadingActions>
   );
 
-  const handleDeleteExpense = (gasto) => {};
+  const handleDeleteExpense = (gasto) => {
+    const gastosActualizados = listaGastos.map((gastoIterado) => {
+      gastoIterado.id !== gasto.id;
+    });
+    setListaGastos(gastosActualizados);
+  };
 
   const trailingActions = () => (
     <TrailingActions>
-      <SwipeAction onClick={() => console.log('eliminar...')}>
+      <SwipeAction onClick={() => handleDeleteExpense(gasto)}>
         Eliminar
       </SwipeAction>
     </TrailingActions>

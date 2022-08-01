@@ -20,6 +20,8 @@ function FormularioModal({
     concepto: '',
     cantidad: '',
     categoria: '',
+    fecha: '',
+    id: '',
   });
   const [mensaje, setMensaje] = useState('');
 
@@ -69,6 +71,7 @@ function FormularioModal({
       console.log(' ');
       const gastoState = structuredClone(gasto);
       gastoState.id = gastoSeleccionadoEditar.id;
+      gastoState.fecha = gastoSeleccionadoEditar.fecha;
       const gastosActualizados = listaGastos.map((gastoIterado) =>
         gastoIterado.id === gastoSeleccionadoEditar.id
           ? gastoState

@@ -16,6 +16,7 @@ function ListadoGastos({
             gasto={gasto}
             setGastoSeleccionadoEditar={setGastoSeleccionadoEditar}
             setListaGastos={setListaGastos}
+            listaGastos={listaGastos}
           />
         );
       })}
