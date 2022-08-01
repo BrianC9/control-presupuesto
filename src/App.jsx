@@ -47,6 +47,7 @@ function App() {
           <ListadoGastos
             listaGastos={listaGastos}
             setGastoSeleccionadoEditar={setGastoSeleccionadoEditar}
+            setListaGastos={setListaGastos}
           />
 
           <div className='nuevo-gasto'>

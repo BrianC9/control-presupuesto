@@ -1,7 +1,11 @@
 import React from 'react';
 import Gasto from './Gasto';
 
-function ListadoGastos({ listaGastos, setGastoSeleccionadoEditar }) {
+function ListadoGastos({
+  listaGastos,
+  setListaGastos,
+  setGastoSeleccionadoEditar,
+}) {
   return (
     <div className={'listado-gastos contenedor'}>
       <h2>{listaGastos.length > 0 ? 'Gastos' : 'No hay gastos'}</h2>
@@ -11,6 +15,7 @@ function ListadoGastos({ listaGastos, setGastoSeleccionadoEditar }) {
             key={gasto.id}
             gasto={gasto}
             setGastoSeleccionadoEditar={setGastoSeleccionadoEditar}
+            setListaGastos={setListaGastos}
           />
         );
       })}

@@ -7,6 +7,7 @@ import {
   formatDate,
 } from '../utils/index.js';
 function FormularioModal({
+  listaGastos,
   setClickedModal,
   categorias_gastos,
   animarModal,
@@ -62,7 +63,24 @@ function FormularioModal({
       }, 2500);
       return;
     }
-    //
+    // Editar un gasto seleccionado
+
+    if (gastoSeleccionadoEditar.concepto) {
+      console.log(' ');
+      const gastoState = structuredClone(gasto);
+      gastoState.id = gastoSeleccionadoEditar.id;
+      const gastosActualizados = listaGastos.map((gastoIterado) =>
+        gastoIterado.id === gastoSeleccionadoEditar.id
+          ? gastoState
+          : gastoIterado
+      );
+      setListaGastos(gastosActualizados);
+
+      setGastoSeleccionadoEditar({});
+      ocultarModal();
+
+      return;
+    }
 
     // Functionality after submit the expense
     ocultarModal();
@@ -89,7 +107,9 @@ function FormularioModal({
       <form className={`formulario ${animarModal ? 'animar' : 'cerrar'}`}>
         {mensaje && <Mensaje tipo={'error'}>{mensaje}</Mensaje>}
 
-        <legend>Nuevo gasto</legend>
+        <legend>
+          {gastoSeleccionadoEditar.concepto ? 'Editar gasto' : 'Nuevo gasto'}
+        </legend>
         <div className='campo'>
           <label htmlFor='concepto'>Concepto de gasto</label>
           <input
@@ -129,7 +149,14 @@ function FormularioModal({
             })}
           </select>
         </div>
-        <input type={'submit'} value={'Agregar gasto'} />
+        <input
+          type={'submit'}
+          value={
+            gastoSeleccionadoEditar.concepto
+              ? 'Confirmar cambios'
+              : 'Nuevo gasto'
+          }
+        />
       </form>
     </div>
   );

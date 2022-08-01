@@ -35,7 +35,9 @@ function Gasto({ gasto, setGastoSeleccionadoEditar }) {
     </LeadingActions>
   );
 
-  const trailingActions = (e) => (
+  const handleDeleteExpense = (gasto) => {};
+
+  const trailingActions = () => (
     <TrailingActions>
       <SwipeAction onClick={() => console.log('eliminar...')}>
         Eliminar
