@@ -33,6 +33,12 @@ function App() {
       setAnimarModal(true);
     }, 500);
   };
+  const handleEliminarGasto = (id) => {
+    const listaGastosActualizada = listaGastos.filter(
+      (gastoIterado) => gastoIterado.id !== id
+    );
+    setListaGastos(listaGastosActualizada);
+  };
   return (
     <div className={clickedModal ? 'fijar' : ''}>
       <Header
@@ -48,6 +54,7 @@ function App() {
             listaGastos={listaGastos}
             setGastoSeleccionadoEditar={setGastoSeleccionadoEditar}
             setListaGastos={setListaGastos}
+            handleEliminarGasto={handleEliminarGasto}
           />
 
           <div className='nuevo-gasto'>

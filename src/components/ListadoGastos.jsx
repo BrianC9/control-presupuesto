@@ -5,6 +5,7 @@ function ListadoGastos({
   listaGastos,
   setListaGastos,
   setGastoSeleccionadoEditar,
+  handleEliminarGasto,
 }) {
   return (
     <div className={'listado-gastos contenedor'}>
@@ -17,6 +18,7 @@ function ListadoGastos({
             setGastoSeleccionadoEditar={setGastoSeleccionadoEditar}
             setListaGastos={setListaGastos}
             listaGastos={listaGastos}
+            handleEliminarGasto={handleEliminarGasto}
           />
         );
       })}

@@ -29,6 +29,7 @@ function Gasto({
   setGastoSeleccionadoEditar,
   setListaGastos,
   listaGastos,
+  handleEliminarGasto,
 }) {
   const { cantidad, concepto, categoria, fecha, id } = gasto;
 
@@ -40,16 +41,12 @@ function Gasto({
     </LeadingActions>
   );
 
-  const handleDeleteExpense = (gasto) => {
-    const gastosActualizados = listaGastos.map((gastoIterado) => {
-      gastoIterado.id !== gasto.id;
-    });
-    setListaGastos(gastosActualizados);
-  };
-
   const trailingActions = () => (
     <TrailingActions>
-      <SwipeAction onClick={() => handleDeleteExpense(gasto)}>
+      <SwipeAction
+        onClick={() => handleEliminarGasto(gasto.id)}
+        destructive={true}
+      >
         Eliminar
       </SwipeAction>
     </TrailingActions>
