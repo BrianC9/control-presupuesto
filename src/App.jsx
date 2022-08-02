@@ -5,11 +5,15 @@ import ListadoGastos from './components/ListadoGastos';
 
 import FormularioModal from './components/FormularioModal';
 function App() {
-  const [presupuesto, setPresupuesto] = useState(0);
+  const [presupuesto, setPresupuesto] = useState(
+    Number(localStorage.getItem('presupuesto')) ?? 0
+  );
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   const [clickedModal, setClickedModal] = useState(false);
   const [animarModal, setAnimarModal] = useState(false);
-  const [listaGastos, setListaGastos] = useState([]);
+  const [listaGastos, setListaGastos] = useState(
+    JSON.parse(localStorage.getItem('listaGastos')) ?? []
+  );
   const [gastoSeleccionadoEditar, setGastoSeleccionadoEditar] = useState({});
   const CATEGORIAS_GASTOS = [
     'comida',
@@ -20,7 +24,16 @@ function App() {
     'varios',
     'ahorro',
   ];
-
+  useEffect(() => {
+    localStorage.setItem('presupuesto', presupuesto);
+  }, [presupuesto]);
+  useEffect(() => {
+    const presupuestoLS = Number(localStorage.getItem('presupuesto'));
+    if (presupuestoLS > 0) setIsValidPresupuesto(true);
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('listaGastos', JSON.stringify(listaGastos));
+  }, [listaGastos]);
   useEffect(() => {
     if (Object.keys(gastoSeleccionadoEditar).length > 0) {
       console.log('Abro el modal desde el swipe');
