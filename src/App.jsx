@@ -4,6 +4,7 @@ import Header from './components/Header';
 import ListadoGastos from './components/ListadoGastos';
 
 import FormularioModal from './components/FormularioModal';
+import Filtros from './components/Filtros';
 function App() {
   const [presupuesto, setPresupuesto] = useState(
     Number(localStorage.getItem('presupuesto')) ?? 0
@@ -15,6 +16,8 @@ function App() {
     JSON.parse(localStorage.getItem('listaGastos')) ?? []
   );
   const [gastoSeleccionadoEditar, setGastoSeleccionadoEditar] = useState({});
+  const [filtro, setFiltro] = useState('');
+  const [gastosFiltrados, setGastosFiltrados] = useState([]);
   const CATEGORIAS_GASTOS = [
     'comida',
     'suscripciones',
@@ -34,6 +37,15 @@ function App() {
   useEffect(() => {
     localStorage.setItem('listaGastos', JSON.stringify(listaGastos));
   }, [listaGastos]);
+  useEffect(() => {
+    if (filtro) {
+      console.log(`Filtrando por ${filtro}`);
+      const gastosFiltrados = listaGastos.filter(
+        (gasto) => gasto.categoria === filtro
+      );
+      setGastosFiltrados(gastosFiltrados);
+    }
+  }, [filtro]);
   useEffect(() => {
     if (Object.keys(gastoSeleccionadoEditar).length > 0) {
       console.log('Abro el modal desde el swipe');
@@ -62,12 +74,19 @@ function App() {
         listaGastos={listaGastos}
       />
       {isValidPresupuesto && (
-        <>
+        <main>
+          <Filtros
+            categorias_gastos={CATEGORIAS_GASTOS}
+            filtro={filtro}
+            setFiltro={setFiltro}
+          />
           <ListadoGastos
             listaGastos={listaGastos}
             setGastoSeleccionadoEditar={setGastoSeleccionadoEditar}
             setListaGastos={setListaGastos}
             handleEliminarGasto={handleEliminarGasto}
+            gastosFiltrados={gastosFiltrados}
+            filtro={filtro}
           />
 
           <div className='nuevo-gasto'>
@@ -77,7 +96,7 @@ function App() {
               onClick={handleAgregarGasto}
             />
           </div>
-        </>
+        </main>
       )}
 
       {clickedModal && (
